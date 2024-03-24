@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input {
+  max-width: 377px;
+}
+
+.letters {
+  margin-top: 120px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  list-style-type: none;
+  gap: 16px;
+}
