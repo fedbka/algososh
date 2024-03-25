@@ -14,15 +14,15 @@ export const StringComponent: React.FC = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [steps, setSteps] = useState<TLetters[]>([]);
 
-  const onSubmitHandler = async (e: React.FormEvent) => {
+  const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     const newSteps = reverseStringWithSteps(values.textInput as string);
     setSteps(newSteps);
 
     setCurrentStepIndex(0);
- 
+
     if (!newSteps.length) return;
-    
+
     setLoading(true);
     let stepIndex = 0;
     const intervalId = setInterval(() => {
@@ -39,7 +39,7 @@ export const StringComponent: React.FC = () => {
   return (
     <SolutionLayout title="Строка">
       <form className={styles.form} onSubmit={onSubmitHandler}>
-        <Input name="textInput" placeholder="Введите текст" type="text" maxLength={11} isLimitText={true} onChange={onChangeHandler} extraClass={styles.input} disabled={isLoading}/>
+        <Input name="textInput" placeholder="Введите текст" type="text" maxLength={11} isLimitText={true} onChange={onChangeHandler} extraClass={styles.input} disabled={isLoading} />
         <Button type="submit" text="Развернуть" disabled={!values.textInput} isLoader={isLoading} />
       </form>
       <ul className={styles.letters}>
