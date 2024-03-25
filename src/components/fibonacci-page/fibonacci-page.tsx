@@ -5,7 +5,7 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
-import { fibonachiNumbers } from "./fibonacci-page-algorithm";
+import { getFibonacciNumbers } from "./fibonacci-page-algorithm";
 import styles from "./fibonacci-page.module.css";
 
 export const FibonacciPage: React.FC = () => {
@@ -17,7 +17,7 @@ export const FibonacciPage: React.FC = () => {
 
   const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    const numbers = fibonachiNumbers(values.numberInput as number);
+    const numbers = getFibonacciNumbers(values.numberInput as number);
 
     setFiboNumbers(numbers);
 

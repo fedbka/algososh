@@ -1,4 +1,4 @@
-export const fibonachiNumbers = (quantity: number): number[] => {
+export const getFibonacciNumbers = (quantity: number): number[] => {
   const result: number[] = [];
 
   while (result.length <= quantity ) {
