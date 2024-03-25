@@ -5,7 +5,7 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
-import { fibonachiNumbers } from "./algo";
+import { fibonachiNumbers } from "./fibonacci-page-algorithm";
 import styles from "./fibonacci-page.module.css";
 
 export const FibonacciPage: React.FC = () => {

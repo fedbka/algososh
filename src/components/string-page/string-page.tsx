@@ -4,8 +4,8 @@ import { Button } from "../ui/button/button";
 import { Input } from "../ui/input/input";
 import { Circle } from "../ui/circle/circle";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
-import { TLetters, reverseStringWithSteps } from "./algo";
-import styles from "./component.module.css";
+import { TLetters, reverseStringWithSteps } from "./string-page-algorithm";
+import styles from "./string-page.module.css";
 import { DELAY_IN_MS } from "../../constants/delays";
 
 export const StringComponent: React.FC = () => {
