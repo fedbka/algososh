@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { useForm } from "../../hooks/useForm";
 import { Button } from "../ui/button/button";
@@ -14,6 +14,12 @@ export const SortingPage: React.FC = () => {
   const [steps, setSteps] = useState<TSortingSteps>([]);
   const [stepIndex, setStepIndex] = useState<number>(0);
   const [numbers, setNumbers] = useState<TElement[]>([]);
+
+  useEffect(() => {
+    if (!numbers.length) {
+      setNumbers(getRandomNumbers());   
+    }
+  }, []);
 
   const newNumbers = (): void => {
     setNumbers(getRandomNumbers());
