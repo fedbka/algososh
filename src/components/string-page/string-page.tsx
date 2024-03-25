@@ -14,7 +14,7 @@ export const StringComponent: React.FC = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [steps, setSteps] = useState<TLetters[]>([]);
 
-  const onSubmitHandler = (e: React.FormEvent) => {
+  const startVisualization = (e: React.FormEvent) => {
     e.preventDefault();
     const newSteps = reverseStringWithSteps(values.textInput as string);
     setSteps(newSteps);
@@ -38,7 +38,7 @@ export const StringComponent: React.FC = () => {
 
   return (
     <SolutionLayout title="Строка">
-      <form className={styles.form} onSubmit={onSubmitHandler}>
+      <form className={styles.form} onSubmit={startVisualization}>
         <Input name="textInput" placeholder="Введите текст" type="text" maxLength={11} isLimitText={true} onChange={onChangeHandler} extraClass={styles.input} disabled={isLoading} />
         <Button type="submit" text="Развернуть" disabled={!values.textInput} isLoader={isLoading} />
       </form>

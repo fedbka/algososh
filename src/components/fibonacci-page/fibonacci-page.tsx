@@ -15,7 +15,7 @@ export const FibonacciPage: React.FC = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const maxNumber = 19;
 
-  const onSubmitHandler = async (e: React.FormEvent) => {
+  const startVisualization = (e: React.FormEvent) => {
     e.preventDefault();
     const numbers = getFibonacciNumbers(values.numberInput as number);
 
@@ -41,7 +41,7 @@ export const FibonacciPage: React.FC = () => {
 
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
-      <form className={styles.form} onSubmit={onSubmitHandler}>
+      <form className={styles.form} onSubmit={startVisualization}>
         <Input name="numberInput" placeholder="Введите число" type="number" isLimitText={true} min={0} max={maxNumber} extraClass={styles.input} onChange={onChangeHandler} disabled={isLoading}/>
         <Button type="submit" text="Рассчитать" disabled={!values.numberInput || values.numberInput as number > maxNumber} isLoader={isLoading} />
       </form>
