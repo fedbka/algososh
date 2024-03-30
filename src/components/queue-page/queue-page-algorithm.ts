@@ -9,7 +9,7 @@ export type TQueue<T> = {
   items: () => (T | null)[];
   size: () => number;
   length: () => number;
-}
+};
 
 export class Queue<T> implements TQueue<T> {
   private container: Array<T | null> = [];
@@ -26,7 +26,7 @@ export class Queue<T> implements TQueue<T> {
     this.tail++;
     this.container[this.tail] = item;
     if (this.head === -1) {
-      this.head = this.tail
+      this.head = this.tail;
     }
   };
 
@@ -39,29 +39,26 @@ export class Queue<T> implements TQueue<T> {
     } else {
       this.head++;
     }
-  }
+  };
 
   clear = () => {
     this.container = Array(this.initialSize);
     this.head = -1;
     this.tail = -1;
-  }
+  };
 
   items = () => [...this.container];
 
   size = () => this.initialSize;
 
-  length = () => this.tail >= 0 ? this.tail - this.head + 1 : 0;
-
+  length = () => (this.tail >= 0 ? this.tail - this.head + 1 : 0);
 }
 
 export type TElement<T> = {
   value: T;
   state: ElementStates;
-}
+};
 
 export type TQueueStep<T> = TElement<T>[];
 
 export type TQueueSteps<T> = TQueueStep<T>[];
-
-

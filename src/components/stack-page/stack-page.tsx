@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { useForm } from "../../hooks/useForm";
+import { ElementStates } from "../../types/element-states";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Stack, TElement, TStack, TStackStep, TStackSteps } from "./stack-page-algorithm";
 import styles from "./stack-page.module.css";
-import { ElementStates } from "../../types/element-states";
-import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export const StackPage: React.FC = () => {
   const { values, onChangeHandler, setValues } = useForm({ textInput: "" });
@@ -21,40 +21,40 @@ export const StackPage: React.FC = () => {
     setAction('clear');
     startVisualization('clear');
   }
-  
+
   const addHandler = () => {
     setAction('add');
     startVisualization('add');
-    setValues({...values, textInput: ''});
+    setValues({ ...values, textInput: '' });
   }
 
   const deleteHandler = () => {
     setAction('delete');
     startVisualization('delete');
   }
-  
+
   const startVisualization = (action: string): void => {
-    
-    const firstStep: TStackStep<string> = stack.items().map(element => ({value: element, state: ElementStates.Default} as TElement<string>));
+
+    const firstStep: TStackStep<string> = stack.items().map(element => ({ value: element, state: ElementStates.Default } as TElement<string>));
 
     let newSteps: TStackSteps<string> = [firstStep];
 
     if (action === 'add') {
       stack.push(values.textInput as string);
-      newSteps = [...newSteps, [...newSteps[0], {value: values.textInput as string, state: ElementStates.Changing}], [...newSteps[0], {value: values.textInput as string, state: ElementStates.Default}]];
+      newSteps = [...newSteps, [...newSteps[0], { value: values.textInput as string, state: ElementStates.Changing }], [...newSteps[0], { value: values.textInput as string, state: ElementStates.Default }]];
     }
 
     if (action === 'delete') {
-      newSteps = [...newSteps, [...newSteps[0].map((element, index) => index !== newSteps[0].length - 1 ? ({...element}) : ({...element, state: ElementStates.Changing}))]];
+      newSteps = [...newSteps, [...newSteps[0].map((element, index) => index !== newSteps[0].length - 1 ? ({ ...element }) : ({ ...element, state: ElementStates.Changing }))]];
       stack.pop();
-      newSteps = [...newSteps, [...stack.items().map(element => ({value: element, state: ElementStates.Default} as TElement<string>))]];
-    } 
-    
+      newSteps = [...newSteps, [...stack.items().map(element => ({ value: element, state: ElementStates.Default } as TElement<string>))]];
+    }
+
     if (action === 'clear') {
-      newSteps = [...newSteps, [...newSteps[0].map((element) => ({...element, state: ElementStates.Changing}))]];
+      newSteps = [...newSteps, [...newSteps[0].map((element) => ({ ...element, state: ElementStates.Changing }))]];
       stack.clear();
       newSteps = [...newSteps, []];
-    } 
+    }
 
     setSteps(newSteps);
     setStepIndex(0);
@@ -86,18 +86,18 @@ export const StackPage: React.FC = () => {
             <Button text="Добавить" type="button" onClick={addHandler} isLoader={isLoading && action === 'add'} disabled={!values.textInput} />
             <Button text="Удалить" type="button" onClick={deleteHandler} isLoader={isLoading && action === 'delete'} disabled={!stack.size()} />
           </div>
-          <Button text="Очистить" type="button" isLoader={isLoading && action === 'clear'} disabled={!stack.size()} onClick={clearHandler}/>
+          <Button text="Очистить" type="button" isLoader={isLoading && action === 'clear'} disabled={!stack.size()} onClick={clearHandler} />
         </fieldset>
       </form>
       <ul className={styles.stack}>
         {isLoading && steps[stepIndex].map((element, index) => (
           <li key={index}>
-            <Circle letter={element.value} state={element.state} index={index} head={index === steps[stepIndex].length - 1 ? 'top' : ''}/>
+            <Circle letter={element.value} state={element.state} index={index} head={index === steps[stepIndex].length - 1 ? 'top' : ''} />
           </li>))
         }
         {!isLoading && stack.items()?.map((element, index) => (
           <li key={index}>
-            <Circle letter={element} state={ElementStates.Default} index={index} head={index === stack.size() - 1 ? 'top' : ''}/>
+            <Circle letter={element} state={ElementStates.Default} index={index} head={index === stack.size() - 1 ? 'top' : ''} />
           </li>))
         }
       </ul>

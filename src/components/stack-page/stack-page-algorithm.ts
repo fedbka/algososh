@@ -6,7 +6,7 @@ export type TStack<T> = {
   clear: () => void;
   size: () => number;
   items: () => T[];
-}
+};
 
 export class Stack<T> implements TStack<T> {
   private stackItems: T[] = [];
@@ -21,21 +21,18 @@ export class Stack<T> implements TStack<T> {
 
   clear = () => {
     this.stackItems = [];
-  }
+  };
 
   size = () => this.stackItems.length;
 
   items = () => [...this.stackItems];
-
 }
 
 export type TElement<T> = {
   value: T;
   state: ElementStates;
-}
+};
 
 export type TStackStep<T> = TElement<T>[];
 
 export type TStackSteps<T> = TStackStep<T>[];
-
-

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { useForm } from "../../hooks/useForm";
 import { ElementStates } from "../../types/element-states";
 import { Button } from "../ui/button/button";
@@ -7,8 +8,6 @@ import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Queue, TElement, TQueue, TQueueSteps } from "./queue-page-algorithm";
 import styles from "./queue-page.module.css";
-import { act } from "react-dom/test-utils";
-import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export const QueuePage: React.FC = () => {
   const { values, onChangeHandler, setValues } = useForm({ textInput: "" });

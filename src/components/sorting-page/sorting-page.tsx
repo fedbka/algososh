@@ -17,7 +17,7 @@ export const SortingPage: React.FC = () => {
 
   useEffect(() => {
     if (!numbers.length) {
-      setNumbers(getRandomNumbers());   
+      setNumbers(getRandomNumbers());
     }
   }, []);
 
@@ -27,7 +27,7 @@ export const SortingPage: React.FC = () => {
   }
 
   const startVisualization = (direction: string): void => {
-    const newSteps = sortNumbers([...numbers.map(element => ({...element}))], values.sortingType as 'choice' | 'bubble', direction as 'ascending' | 'descending');
+    const newSteps = sortNumbers([...numbers.map(element => ({ ...element }))], values.sortingType as 'choice' | 'bubble', direction as 'ascending' | 'descending');
     setSteps(newSteps);
     setStepIndex(0);
 
@@ -71,7 +71,7 @@ export const SortingPage: React.FC = () => {
           <li key={index}>
             <Column index={element.value} state={element.state} />
           </li>))
-        }        
+        }
       </ul>
     </SolutionLayout>
   );
