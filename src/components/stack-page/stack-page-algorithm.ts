@@ -3,7 +3,6 @@ import { ElementStates } from "../../types/element-states";
 export type TStack<T> = {
   push: (item: T) => void;
   pop: () => void;
-  peak: () => T | null;
   clear: () => void;
   size: () => number;
   items: () => T[];
@@ -18,10 +17,6 @@ export class Stack<T> implements TStack<T> {
 
   pop = () => {
     this.stackItems.pop();
-  };
-
-  peak = () => {
-    return !this.stackItems.length ? null : this.stackItems[this.stackItems.length - 1];
   };
 
   clear = () => {
