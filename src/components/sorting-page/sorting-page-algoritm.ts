@@ -31,7 +31,7 @@ export const sortNumbers = (
   direction: "ascending" | "descending"
 ): TSortingSteps => {
   const result: TSortingSteps = [];
-  result.push([...numbers.map(element => ({...element}))]);
+  result.push([...numbers.map((element) => ({ ...element }))]);
 
   if (sortingType === "bubble") {
     for (let i = 0; i < numbers.length; i++) {
@@ -46,13 +46,17 @@ export const sortNumbers = (
         if (
           (direction === "ascending" &&
             numbers[j].value > numbers[j + 1].value) ||
-          (direction === "descending" && numbers[j].value < numbers[j + 1].value)
+          (direction === "descending" &&
+            numbers[j].value < numbers[j + 1].value)
         ) {
           [numbers[j], numbers[j + 1]] = [numbers[j + 1], numbers[j]];
         }
       }
-      numbers[numbers.length - i - 1] = {...numbers[numbers.length - i - 1], state: ElementStates.Modified} ;
-      result.push([...numbers.map(element => ({...element}))]);
+      numbers[numbers.length - i - 1] = {
+        ...numbers[numbers.length - i - 1],
+        state: ElementStates.Modified,
+      };
+      result.push([...numbers.map((element) => ({ ...element }))]);
     }
   } else if (sortingType === "choice") {
     for (let i = 0; i < numbers.length; i++) {
@@ -68,16 +72,17 @@ export const sortNumbers = (
         if (
           (direction === "descending" &&
             numbers[k].value > numbers[indexMin].value) ||
-          (direction === "ascending" && numbers[k].value < numbers[indexMin].value)
+          (direction === "ascending" &&
+            numbers[k].value < numbers[indexMin].value)
         ) {
           indexMin = k;
-        }        
+        }
       }
       if (indexMin !== i) {
         [numbers[i], numbers[indexMin]] = [numbers[indexMin], numbers[i]];
       }
-      numbers[i] = {...numbers[i], state: ElementStates.Modified};
-      result.push([...numbers.map(element => ({...element}))]);
+      numbers[i] = { ...numbers[i], state: ElementStates.Modified };
+      result.push([...numbers.map((element) => ({ ...element }))]);
     }
   }
 
