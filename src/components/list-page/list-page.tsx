@@ -31,8 +31,7 @@ export const ListPage: React.FC = () => {
   const [steps, setSteps] = useState<TSteps<string>>([]);
   const [stepIndex, setStepIndex] = useState<number>(0);
   const [action, setAction] = useState<TActions>(null);
-  console.log(list.size);
-  console.log(list.toArray());
+
   const startVisualization = (action: TActions): void => {
     setAction(action);
     const newSteps: TSteps<string> = [];
