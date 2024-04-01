@@ -1,5 +1,3 @@
-import { ElementStates } from "../../types/element-states";
-
 export type TQueue<T> = {
   head: number;
   tail: number;
@@ -53,12 +51,3 @@ export class Queue<T> implements TQueue<T> {
 
   length = () => (this.tail >= 0 ? this.tail - this.head + 1 : 0);
 }
-
-export type TElement<T> = {
-  value: T;
-  state: ElementStates;
-};
-
-export type TQueueStep<T> = TElement<T>[];
-
-export type TQueueSteps<T> = TQueueStep<T>[];

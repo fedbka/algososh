@@ -9,51 +9,34 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Stack, TElement, TStack, TStackStep, TStackSteps } from "./stack-page-algorithm";
 import styles from "./stack-page.module.css";
 
+type TActions = 'add' | 'delete' | 'clear' | null;
 export const StackPage: React.FC = () => {
   const { values, onChangeHandler, setValues } = useForm({ textInput: "" });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [stack] = useState<TStack<string>>(new Stack<string>());
   const [steps, setSteps] = useState<TStackSteps<string>>([]);
   const [stepIndex, setStepIndex] = useState<number>(0);
-  const [action, setAction] = useState<'add' | 'delete' | 'clear' | ''>('');
+  const [action, setAction] = useState<TActions>(null);
 
-  const clearHandler = () => {
-    setAction('clear');
-    startVisualization('clear');
-  }
-
-  const addHandler = () => {
-    setAction('add');
-    startVisualization('add');
-    setValues({ ...values, textInput: '' });
-  }
-
-  const deleteHandler = () => {
-    setAction('delete');
-    startVisualization('delete');
-  }
-
-  const startVisualization = (action: string): void => {
-
+  const startVisualization = (action: TActions): void => {
+    setAction(action);
     const firstStep: TStackStep<string> = stack.items().map(element => ({ value: element, state: ElementStates.Default } as TElement<string>));
 
-    let newSteps: TStackSteps<string> = [firstStep];
+    const newSteps: TStackSteps<string> = [];
 
     if (action === 'add') {
       stack.push(values.textInput as string);
-      newSteps = [...newSteps, [...newSteps[0], { value: values.textInput as string, state: ElementStates.Changing }], [...newSteps[0], { value: values.textInput as string, state: ElementStates.Default }]];
+      newSteps.push([...firstStep, { value: values.textInput as string, state: ElementStates.Changing }]);
     }
 
     if (action === 'delete') {
-      newSteps = [...newSteps, [...newSteps[0].map((element, index) => index !== newSteps[0].length - 1 ? ({ ...element }) : ({ ...element, state: ElementStates.Changing }))]];
+      newSteps.push(firstStep.map((element, index) => index !== firstStep.length - 1 ? ({ ...element }) : ({ ...element, state: ElementStates.Changing })));
       stack.pop();
-      newSteps = [...newSteps, [...stack.items().map(element => ({ value: element, state: ElementStates.Default } as TElement<string>))]];
     }
 
     if (action === 'clear') {
-      newSteps = [...newSteps, [...newSteps[0].map((element) => ({ ...element, state: ElementStates.Changing }))]];
+      newSteps.push([...firstStep.map((element) => ({ ...element, state: ElementStates.Changing }))]);
       stack.clear();
-      newSteps = [...newSteps, []];
     }
 
     setSteps(newSteps);
@@ -66,6 +49,7 @@ export const StackPage: React.FC = () => {
     const intervalId = setInterval(() => {
       if (stepsIndex >= newSteps.length - 1) {
         clearInterval(intervalId);
+        setValues({...values, textInput: ""});
         setIsLoading(false);
         return;
       }
@@ -77,16 +61,16 @@ export const StackPage: React.FC = () => {
 
   return (
     <SolutionLayout title="Стек">
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <fieldset className={styles.fieldset_input} disabled={isLoading}>
-          <Input type="string" maxLength={4} value={values.textInput as string} name="textInput" placeholder="Введите текст" onChange={onChangeHandler} />
+          <Input type="string" maxLength={4} value={values.textInput as string} name="textInput" placeholder="Введите значение" onChange={onChangeHandler} />
         </fieldset>
         <fieldset className={styles.form_buttons} disabled={isLoading}>
           <div className={styles.form_buttons_main}>
-            <Button text="Добавить" type="button" onClick={addHandler} isLoader={isLoading && action === 'add'} disabled={!values.textInput} />
-            <Button text="Удалить" type="button" onClick={deleteHandler} isLoader={isLoading && action === 'delete'} disabled={!stack.size()} />
+            <Button text="Добавить" type="button" onClick={() => startVisualization('add')} isLoader={isLoading && action === 'add'} disabled={!values.textInput} />
+            <Button text="Удалить" type="button" onClick={() => startVisualization('delete')} isLoader={isLoading && action === 'delete'} disabled={!stack.size()} />
           </div>
-          <Button text="Очистить" type="button" isLoader={isLoading && action === 'clear'} disabled={!stack.size()} onClick={clearHandler} />
+          <Button text="Очистить" type="button" onClick={() => startVisualization('clear')} isLoader={isLoading && action === 'clear'} disabled={!stack.size()} />
         </fieldset>
       </form>
       <ul className={styles.stack}>

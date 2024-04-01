@@ -5,9 +5,9 @@ export type TElement = {
   state: ElementStates;
 };
 
-export type TSortingStep = TElement[];
+export type TStep = TElement[];
 
-export type TSortingSteps = TSortingStep[];
+export type TSteps = TStep[];
 
 export const getRandomNumbers = (): TElement[] => {
   const minLength = 3;
@@ -29,8 +29,8 @@ export const sortNumbers = (
   numbers: TElement[],
   sortingType: "choice" | "bubble",
   direction: "ascending" | "descending"
-): TSortingSteps => {
-  const result: TSortingSteps = [];
+): TSteps => {
+  const result: TSteps = [];
   result.push([...numbers.map((element) => ({ ...element }))]);
 
   if (sortingType === "bubble") {
