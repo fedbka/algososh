@@ -64,7 +64,7 @@ export class LinkedList<T> implements ILinkedList<T> {
 
   addByIndex = (element: T, index: number) => {
     if (index > this.size - 1 || this.head === null) return;
-    this.size--;
+    this.size++;
     const newNode = new LinkedListNode(element);
     if (index === 0) {
       newNode.next = this.head;
