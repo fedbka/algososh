@@ -1,0 +1,54 @@
+.form {
+  margin: 0;
+  padding: 0;
+  max-width: 952px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  row-gap: 16px;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 100%;
+  gap: 12px;
+}
+
+.input {
+  width: 100%;
+  min-width: 204px;
+  max-width: 204px;
+}
+
+.wideButton {
+  width: 100%;
+}
+
+.list {
+  margin: 90px auto 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  list-style-type: none;
+  gap: 16px;
+  max-width: 944px;
+  flex-wrap: wrap;
+  row-gap: 48px;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
