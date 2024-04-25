@@ -1,6 +1,10 @@
-import { expect, describe, test, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, test, vi } from "vitest";
 import { Button } from "./button";
-import { render, screen, fireEvent } from "@testing-library/react";
+
+const TEST_DATA = {
+  text: 'test text',
+}
 
 describe("Тестирование компонента 'Button'", () => {
 
@@ -11,7 +15,7 @@ describe("Тестирование компонента 'Button'", () => {
   });
 
   test("Компонент 'Button' c текстом формируется без ошибок", () => {
-    render(<Button text="text" />);
+    render(<Button text={TEST_DATA.text} />);
     const btn = screen.getByRole("button");
     expect(btn).toMatchSnapshot();
   });
@@ -32,6 +36,7 @@ describe("Тестирование компонента 'Button'", () => {
     const clickHandler = vi.fn(() => 0);
     const { container } = render(<Button onClick={clickHandler} />);
     const btn = container.firstChild;
+    expect(btn).toMatchSnapshot();  
     fireEvent.click(btn as Element);
     expect(clickHandler).toHaveBeenCalledOnce();
   });

@@ -8,7 +8,7 @@ exports[`Тестирование компонента 'Button' > Компоне
   <p
     class="text undefined"
   >
-    text
+    test text
   </p>
 </button>
 `;

@@ -11,6 +11,12 @@ export type TSteps = TLetters[];
 
 export const reverseStringWithSteps = (text: string): TSteps => {
   const result: TSteps = [];
+
+  if (text === "") {
+    result.push([{ value: "", state: ElementStates.Modified }]);
+    return result;
+  }
+
   let letters: TLetters = text
     .split("")
     .map((letter: string) => ({ value: letter, state: ElementStates.Default }));

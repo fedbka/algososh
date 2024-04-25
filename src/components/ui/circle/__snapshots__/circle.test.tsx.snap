@@ -1,0 +1,330 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' без буквы формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    />
+    <div
+      class="_circle_c89a63   _default_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+    />
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с React-элементом в head формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    >
+      <div
+        class="_content_c89a63 "
+      >
+        <div
+          class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+        />
+        <div
+          class="_circle_c89a63  _small_c89a63 _default_c89a63"
+        >
+          <p
+            class="text text_type_circle text_color_input _letter_c89a63"
+          >
+            'CTD'
+          </p>
+        </div>
+        <p
+          class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+        />
+        <div
+          class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+        />
+      </div>
+    </div>
+    <div
+      class="_circle_c89a63   _default_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+    />
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с React-элементом в tail формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    />
+    <div
+      class="_circle_c89a63   _default_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+    >
+      <div
+        class="_content_c89a63 "
+      >
+        <div
+          class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+        />
+        <div
+          class="_circle_c89a63  _small_c89a63 _default_c89a63"
+        >
+          <p
+            class="text text_type_circle text_color_input _letter_c89a63"
+          >
+            'CTD'
+          </p>
+        </div>
+        <p
+          class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+        />
+        <div
+          class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с буквой в head формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _string_c89a63"
+    >
+      CTD
+    </div>
+    <div
+      class="_circle_c89a63   _default_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+    />
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с буквой в tail формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    />
+    <div
+      class="_circle_c89a63   _default_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _string_c89a63"
+    >
+      CTD
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с буквой формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    />
+    <div
+      class="_circle_c89a63   _default_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      >
+        CTD
+      </p>
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+    />
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с индексом формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    />
+    <div
+      class="_circle_c89a63   _default_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    >
+      1
+    </p>
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail60_c89a63 _element_c89a63"
+    />
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с указанным свойством 'isSmall' формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    />
+    <div
+      class="_circle_c89a63  _small_c89a63 _default_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+    />
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с указанным состояние 'ElementStates.Changing' формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    />
+    <div
+      class="_circle_c89a63   _changing_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+    />
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с указанным состояние 'ElementStates.Default' формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    />
+    <div
+      class="_circle_c89a63   _default_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+    />
+  </div>
+</div>
+`;
+
+exports[`Тестирование компонента 'Circle' > Компонент 'Circle' с указанным состояние 'ElementStates.Modified' формируется без ошибок 1`] = `
+<div>
+  <div
+    class="_content_c89a63 "
+  >
+    <div
+      class="text text_type_input text_color_input mb-4 _absolute_c89a63 _head_c89a63 _element_c89a63"
+    />
+    <div
+      class="_circle_c89a63   _modified_c89a63"
+    >
+      <p
+        class="text text_type_circle text_color_input _letter_c89a63"
+      />
+    </div>
+    <p
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _index_c89a63"
+    />
+    <div
+      class="text text_type_input text_color_input mt-4 _absolute_c89a63 _tail30_c89a63 _element_c89a63"
+    />
+  </div>
+</div>
+`;
