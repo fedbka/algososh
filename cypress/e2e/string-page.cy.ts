@@ -34,8 +34,9 @@ describe("Тестирование страницы 'Строка'", () => {
   it(`Проверка корректности разворота и анимации (пошаговая)`, () => {
     cy.get("@textInput").type(TEST_DATA.inputString);
     cy.get("@submitButton").should("not.be.disabled");
-    cy.get("@submitButton").click();
     cy.clock();
+    cy.get("@submitButton").click();
+
 
     cy.get("div[class*='circle']").as("letters");
 

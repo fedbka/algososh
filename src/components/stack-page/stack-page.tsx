@@ -49,7 +49,7 @@ export const StackPage: React.FC = () => {
     const intervalId = setInterval(() => {
       if (stepsIndex >= newSteps.length - 1) {
         clearInterval(intervalId);
-        setValues({...values, textInput: ""});
+        setValues({ ...values, textInput: "" });
         setIsLoading(false);
         return;
       }
@@ -63,17 +63,17 @@ export const StackPage: React.FC = () => {
     <SolutionLayout title="Стек">
       <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <fieldset className={styles.fieldset_input} disabled={isLoading}>
-          <Input type="string" maxLength={4} value={values.textInput as string} name="textInput" placeholder="Введите значение" onChange={onChangeHandler} />
+          <Input type="string" maxLength={4} value={values.textInput as string} name="textInput" placeholder="Введите значение" onChange={onChangeHandler} data-test-id="textInput" />
         </fieldset>
         <fieldset className={styles.form_buttons} disabled={isLoading}>
           <div className={styles.form_buttons_main}>
-            <Button text="Добавить" type="button" onClick={() => startVisualization('add')} isLoader={isLoading && action === 'add'} disabled={!values.textInput} />
-            <Button text="Удалить" type="button" onClick={() => startVisualization('delete')} isLoader={isLoading && action === 'delete'} disabled={!stack.size()} />
+            <Button text="Добавить" type="button" onClick={() => startVisualization('add')} isLoader={isLoading && action === 'add'} disabled={!values.textInput} data-test-id="add" />
+            <Button text="Удалить" type="button" onClick={() => startVisualization('delete')} isLoader={isLoading && action === 'delete'} disabled={!stack.size()} data-test-id="delete" />
           </div>
-          <Button text="Очистить" type="button" onClick={() => startVisualization('clear')} isLoader={isLoading && action === 'clear'} disabled={!stack.size()} />
+          <Button text="Очистить" type="button" onClick={() => startVisualization('clear')} isLoader={isLoading && action === 'clear'} disabled={!stack.size()} data-test-id="clear" />
         </fieldset>
       </form>
-      <ul className={styles.stack}>
+      <ul className={styles.stack} data-test-id="stack">
         {isLoading && steps[stepIndex].map((element, index) => (
           <li key={index}>
             <Circle letter={element.value} state={element.state} index={index} head={index === steps[stepIndex].length - 1 ? 'top' : ''} />
