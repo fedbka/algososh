@@ -1,11 +1,8 @@
-import { contains } from "cypress/types/jquery";
-import { TStackSteps } from "../../src/components/stack-page/stack-page-algorithm";
-
 import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
 import { CIRCLE_BORDER_STYLES } from "./constants";
 
 const TEST_DATA = {
-  itemsForStack: ["FIRS", "SECO", "THIR"],
+  itemsForStack: ["FIRS", "SECO", "THIR", "FOUR"],
 };
 
 describe("Тестирование страницы 'Стек'", () => {
@@ -18,7 +15,7 @@ describe("Тестирование страницы 'Стек'", () => {
     cy.get("[data-test-id='stack']").as("stack");
   });
 
-  it("Проверка условия - при пустом поле ввода кнопка запуска действия неактивна", () => {
+  it("Проверка условия - при пустом поле ввода кнопка добавления неактивна", () => {
     cy.get("@textInput")
       .should("be.empty")
       .get("@addButton")
@@ -30,14 +27,10 @@ describe("Тестирование страницы 'Стек'", () => {
       .get("@textInput")
       .clear()
       .get("@addButton")
-      .should("be.disabled")
-      .get("@stack")
-      .should("be.empty")
-      .get("@clearButton")
       .should("be.disabled");
   });
 
-  it("Проверка условия - при пустом стеке кнопка очистки стека неактивна", () => {
+  it("Проверка условия - при пустом стеке кнопка очистки неактивна", () => {
     cy.get("@stack")
       .should("be.empty")
       .get("@deleteButton")
@@ -47,10 +40,7 @@ describe("Тестирование страницы 'Стек'", () => {
   });
 
   it("Проверка правильности добавления элемента в стек. ", () => {
-    cy.get("@stack")
-      .should("be.empty")
-      .get("@clearButton")
-      .should("be.disabled");
+    cy.get("@stack").should("be.empty");
 
     TEST_DATA.itemsForStack.forEach((item, itemIndex) => {
       cy.get("@textInput").should("be.empty").type(item);
@@ -140,6 +130,9 @@ describe("Тестирование страницы 'Стек'", () => {
           "have.length",
           TEST_DATA.itemsForStack.length - (itemIndex + 1)
         );
+      cy.clock().then((clock) => {
+        clock.restore();
+      });
     });
   });
 
