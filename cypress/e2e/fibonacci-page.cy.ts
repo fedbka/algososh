@@ -1,6 +1,4 @@
-import {
-  getFibonacciNumbers,
-} from "../../src/components/fibonacci-page/fibonacci-page-algorithm";
+import { getFibonacciNumbers } from "../../src/components/fibonacci-page/fibonacci-page-algorithm";
 
 import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
 import { CIRCLE_BORDER_STYLES } from "./constants";
@@ -31,9 +29,8 @@ describe("Тестирование страницы 'Фибоначчи'", () =>
   it(`Проверка корректности разворота и анимации (пошаговая)`, () => {
     cy.get("@textInput").type(TEST_DATA.numbersQuantity.toString());
     cy.get("@submitButton").should("not.be.disabled");
-    cy.get("@submitButton").click();
     cy.clock();
-
+    cy.get("@submitButton").click();
     cy.get("div[class*='circle']").as("numbers");
 
     TEST_DATA.fibonacciNumbers.forEach((fibonacciNumber, stepIndex) => {
@@ -45,14 +42,15 @@ describe("Тестирование страницы 'Фибоначчи'", () =>
           cy.wrap(circle)
             .should("contain", TEST_DATA.fibonacciNumbers[index])
             .parent()
-            .should(
-              "have.css",
-              "border",
-              CIRCLE_BORDER_STYLES.default);
+            .should("have.css", "border", CIRCLE_BORDER_STYLES.default);
         });
       cy.tick(SHORT_DELAY_IN_MS);
     });
     cy.get("@textInput").should("be.empty");
     cy.get("@submitButton").should("be.disabled");
+
+    cy.clock().then((clock) => {
+      clock.restore();
+    });
   });
 });

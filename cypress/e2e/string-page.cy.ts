@@ -37,7 +37,6 @@ describe("Тестирование страницы 'Строка'", () => {
     cy.clock();
     cy.get("@submitButton").click();
 
-
     cy.get("div[class*='circle']").as("letters");
 
     TEST_DATA.reverseSteps.forEach((step) => {
@@ -60,18 +59,19 @@ describe("Тестирование страницы 'Строка'", () => {
             );
         });
       cy.tick(DELAY_IN_MS);
+      cy.clock().then((clock) => {
+        clock.restore();
+      });
     });
 
     cy.get("@letters")
       .children()
       .should("have.length", TEST_DATA.inputString.length)
       .each((circle, index) => {
-        cy.wrap(circle).should("contain", TEST_DATA.reversedInputString[index])
-        .parent()
-        .should(
-          "have.css",
-          "border",
-          CIRCLE_BORDER_STYLES.modified);
+        cy.wrap(circle)
+          .should("contain", TEST_DATA.reversedInputString[index])
+          .parent()
+          .should("have.css", "border", CIRCLE_BORDER_STYLES.modified);
       });
     cy.get("@textInput").should("be.empty");
     cy.get("@submitButton").should("be.disabled");

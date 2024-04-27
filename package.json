@@ -12,7 +12,8 @@
     "coverage": "vitest run --coverage",
     "cy:open-e2e": "cypress open --e2e --browser edge",
     "cy:run-e2e": "cypress run --e2e",
-    "cy:e2e": "start-server-and-test dev http-get://localhost:5137 cy:open-e2e"
+    "cy:e2e": "start-server-and-test dev http-get://localhost:5137 cy:open-e2e",
+    "cypress:open": "start-server-and-test dev http-get://localhost:5137 cy:open-e2e" 
   },
   "dependencies": {
     "nanoid": "^5.0.6",

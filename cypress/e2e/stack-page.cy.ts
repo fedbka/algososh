@@ -64,6 +64,9 @@ describe("Тестирование страницы 'Стек'", () => {
           cy.wrap($childrenOflastElement).eq(2).contains(itemIndex.toString());
         });
       cy.tick(SHORT_DELAY_IN_MS);
+      cy.clock().then((clock) => {
+        clock.restore();
+      });
     });
 
     cy.get("@stack")
@@ -85,6 +88,9 @@ describe("Тестирование страницы 'Стек'", () => {
       cy.get("@addButton").should("not.be.disabled").click();
       cy.tick(SHORT_DELAY_IN_MS);
       cy.tick(SHORT_DELAY_IN_MS);
+      cy.clock().then((clock) => {
+        clock.restore();
+      });
     });
 
     cy.get("@stack")
@@ -95,8 +101,6 @@ describe("Тестирование страницы 'Стек'", () => {
       .should("be.disabled")
       .get("@deleteButton")
       .should("not.be.disabled");
-
-    cy.clock();
 
     TEST_DATA.itemsForStack.reverse().forEach((item, itemIndex) => {
       cy.clock();
@@ -143,6 +147,9 @@ describe("Тестирование страницы 'Стек'", () => {
       cy.get("@addButton").should("not.be.disabled").click();
       cy.tick(SHORT_DELAY_IN_MS);
       cy.tick(SHORT_DELAY_IN_MS);
+      cy.clock().then((clock) => {
+        clock.restore();
+      });
     });
 
     cy.get("@stack")
@@ -166,7 +173,9 @@ describe("Тестирование страницы 'Стек'", () => {
       });
 
     cy.tick(SHORT_DELAY_IN_MS);
-
+    cy.clock().then((clock) => {
+      clock.restore();
+    });
     cy.get("@stack")
       .should("be.empty")
       .get("@clearButton")

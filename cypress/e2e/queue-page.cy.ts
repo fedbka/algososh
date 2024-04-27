@@ -64,6 +64,9 @@ describe("Тестирование страницы 'Очередь'", () => {
       cy.get("@circles")
         .eq(itemIndex)
         .should("have.css", "border", CIRCLE_BORDER_STYLES.default);
+      cy.clock().then((clock) => {
+        clock.restore();
+      });
     });
 
     cy.get("@textInput")
@@ -83,10 +86,9 @@ describe("Тестирование страницы 'Очередь'", () => {
       cy.get("@addButton").should("not.be.disabled").click();
       cy.tick(SHORT_DELAY_IN_MS);
       cy.tick(SHORT_DELAY_IN_MS);
-    });
-
-    cy.clock().then((clock) => {
-      clock.restore();
+      cy.clock().then((clock) => {
+        clock.restore();
+      });
     });
 
     TEST_DATA.itemsForQueue.forEach((item, itemIndex) => {
@@ -100,14 +102,13 @@ describe("Тестирование страницы 'Очередь'", () => {
       cy.get("@circles")
         .eq(itemIndex)
         .should("have.css", "border", CIRCLE_BORDER_STYLES.default);
-      cy.get("@heads")
-        .eq(itemIndex)
-        .should("be.empty");
+      cy.get("@heads").eq(itemIndex).should("be.empty");
       itemIndex < TEST_DATA.itemsForQueue.length - 1 &&
-      cy.get("@heads")
-        .eq(itemIndex + 1)        
-        .should("contain", "head");
-      
+        cy
+          .get("@heads")
+          .eq(itemIndex + 1)
+          .should("contain", "head");
+
       cy.clock().then((clock) => {
         clock.restore();
       });
@@ -124,10 +125,6 @@ describe("Тестирование страницы 'Очередь'", () => {
       cy.clock().then((clock) => {
         clock.restore();
       });
-    });
-
-    cy.clock().then((clock) => {
-      clock.restore();
     });
 
     cy.clock();
