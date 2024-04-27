@@ -4,9 +4,12 @@ import {
 } from "../../src/components/string-page/string-page-algorithm";
 
 import { DELAY_IN_MS } from "../../src/constants/delays";
+import { ElementStates } from "../../src/types/element-states";
+import { CIRCLE_BORDER_STYLES } from "./constants";
+
 const TEST_DATA = {
-  inputString: "hello",
-  reversedInputString: "olleh",
+  inputString: "АНДРЕЙ",
+  reversedInputString: "ЙЕРДНА",
   reverseSteps: [] as TSteps,
 };
 
@@ -27,23 +30,15 @@ describe("Тестирование страницы 'Строка'", () => {
     cy.get("@textInput").clear();
     cy.get("@submitButton").should("be.disabled");
   });
-});
 
-describe("Проверка корректности разворота строки (пошагово)", () => {
-  before(() => {
-    cy.visit("/recursion");
-    cy.get("button[type=submit]").as("submitButton");
-    cy.get("input").as("textInput");
+  it(`Проверка корректности разворота и анимации (пошаговая)`, () => {
     cy.get("@textInput").type(TEST_DATA.inputString);
     cy.get("@submitButton").should("not.be.disabled");
     cy.get("@submitButton").click();
-  });
+    cy.clock();
 
-  beforeEach(() => {
     cy.get("div[class*='circle']").as("letters");
-  });
 
-  it(`Проверка корректности разворота и анимации (пошаговая)`, () => {
     TEST_DATA.reverseSteps.forEach((step) => {
       cy.get("@submitButton").should("be.disabled");
       cy.get("@letters")
@@ -52,16 +47,32 @@ describe("Проверка корректности разворота стро�
         .each((circle, index) => {
           cy.wrap(circle)
             .should("contain", step[index].value)
-            .should("have.css", "border");
+            .parent()
+            .should(
+              "have.css",
+              "border",
+              step[index].state == ElementStates.Default
+                ? CIRCLE_BORDER_STYLES.default
+                : step[index].state == ElementStates.Changing
+                ? CIRCLE_BORDER_STYLES.changing
+                : CIRCLE_BORDER_STYLES.modified
+            );
         });
-      cy.wait(DELAY_IN_MS);
+      cy.tick(DELAY_IN_MS);
     });
+
     cy.get("@letters")
       .children()
       .should("have.length", TEST_DATA.inputString.length)
       .each((circle, index) => {
-        cy.wrap(circle).should("contain", TEST_DATA.reversedInputString[index]);
+        cy.wrap(circle).should("contain", TEST_DATA.reversedInputString[index])
+        .parent()
+        .should(
+          "have.css",
+          "border",
+          CIRCLE_BORDER_STYLES.modified);
       });
-    cy.get("@submitButton").should("not.be.disabled");
+    cy.get("@textInput").should("be.empty");
+    cy.get("@submitButton").should("be.disabled");
   });
 });
