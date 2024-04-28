@@ -63,7 +63,7 @@ export const StackPage: React.FC = () => {
     <SolutionLayout title="Стек">
       <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <fieldset className={styles.fieldset_input} disabled={isLoading}>
-          <Input type="string" maxLength={4} value={values.textInput as string} name="textInput" placeholder="Введите значение" onChange={onChangeHandler} data-test-id="textInput" />
+          <Input type="string" maxLength={4} value={values.textInput as string} name="textInput" placeholder="Введите значение" onChange={onChangeHandler} data-test-id="valueInput" />
         </fieldset>
         <fieldset className={styles.form_buttons} disabled={isLoading}>
           <div className={styles.form_buttons_main}>

@@ -1,4 +1,4 @@
-import { APP_TITLE } from "../../src/constants/tests";
+import { APP_TITLE } from "../support/constants";
 
 describe("Тестирование работоспособности приложения", () => {
   it("Наше приложение поднялось.", () => {

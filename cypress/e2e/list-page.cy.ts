@@ -1,85 +1,36 @@
 import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
-import { CIRCLE_BORDER_STYLES } from "./constants";
+import { CIRCLE_BORDER_STYLES, SELECTOR_ACTION_BUTTON_ADD_BY_INDEX, SELECTOR_ACTION_BUTTON_APPEND, SELECTOR_ACTION_BUTTON_DELETE_BY_INDEX, SELECTOR_ACTION_BUTTON_DELETE_HEAD, SELECTOR_ACTION_BUTTON_DELETE_TAIL, SELECTOR_ACTION_BUTTON_PREPEND, SELECTOR_CIRCLES, SELECTOR_CIRCLES_CONTENT, SELECTOR_HEADS, SELECTOR_INDEXES, SELECTOR_INDEX_INPUT, SELECTOR_TAILS, SELECTOR_VALUE_INPUT } from "../support/constants";
 
 const TEST_DATA = {
   addingText: "test",
   addingIndex: 1,
-  deletingIndex: 2,
+  deletingIndex: 1,
 };
 describe("Тестирование страницы 'Стек'", () => {
   beforeEach(() => {
     cy.visit("/list");
-    cy.get("[data-test-id='textInput']").as("textInput");
-    cy.get("[data-test-id='indexInput']").as("indexInput");
-    cy.get("[data-test-id='prepend']").as("prepend");
-    cy.get("[data-test-id='append']").as("append");
-    cy.get("[data-test-id='deleteHead']").as("deleteHead");
-    cy.get("[data-test-id='deleteTail']").as("deleteTail");
-    cy.get("[data-test-id='addByIndex']").as("addByIndex");
-    cy.get("[data-test-id='deleteByIndex']").as("deleteByIndex");
+    cy.get(SELECTOR_VALUE_INPUT).as("valueInput");
+    cy.get(SELECTOR_INDEX_INPUT).as("indexInput");
+    cy.get(SELECTOR_ACTION_BUTTON_PREPEND).as("prepend");
+    cy.get(SELECTOR_ACTION_BUTTON_APPEND).as("append");
+    cy.get(SELECTOR_ACTION_BUTTON_DELETE_HEAD).as("deleteHead");
+    cy.get(SELECTOR_ACTION_BUTTON_DELETE_TAIL).as("deleteTail");
+    cy.get(SELECTOR_ACTION_BUTTON_ADD_BY_INDEX).as("addByIndex");
+    cy.get(SELECTOR_ACTION_BUTTON_DELETE_BY_INDEX).as("deleteByIndex");
 
-    cy.get("p[class*='circle']").as("list");
-    cy.get("div[class*='circle']").as("circles");
-    cy.get("div[class*='head']").as("heads");
-    cy.get("div[class*='tail']").as("tails");
-    cy.get("p[class*='index']").as("indexes");
+    cy.get(SELECTOR_CIRCLES_CONTENT).as("list");
+    cy.get(SELECTOR_CIRCLES).as("circles");
+    cy.get(SELECTOR_HEADS).as("heads");
+    cy.get(SELECTOR_TAILS).as("tails");
+    cy.get(SELECTOR_INDEXES).as("indexes");
   });
 
   it("Проверка условия - при пустом поле ввода значения кнопки добавления в список неактивна", () => {
-    cy.get("@textInput")
-      .should("be.empty")
-      .get("@prepend")
-      .should("be.disabled")
-      .get("@append")
-      .should("be.disabled")
-      .get("@textInput")
-      .type("test")
-      .get("@prepend")
-      .should("not.be.disabled")
-      .get("@append")
-      .should("not.be.disabled")
-      .get("@textInput")
-      .clear()
-      .get("@prepend")
-      .should("be.disabled")
-      .get("@append")
-      .should("be.disabled");
+    cy.checkButtonsUnavailabilityOnEmptyInputs("@valueInput", ["@prepend", "@append"]);
   });
 
   it("Проверка условия - при пустом поле ввода индекса кнопки удаления по индексу неактивна", () => {
-    cy.get("@indexInput")
-      .should("be.empty")
-      .get("@deleteByIndex")
-      .should("be.disabled")
-      .get("@indexInput")
-      .type("1")
-      .get("@deleteByIndex")
-      .should("not.be.disabled")
-      .get("@indexInput")
-      .clear()
-      .get("@deleteByIndex")
-      .should("be.disabled");
-  });
-
-  it("Проверка условия - при пустых полях ввода значения и индекса кнопка добавления по индексу неактивна", () => {
-    cy.get("@textInput")
-      .should("be.empty")
-      .get("@indexInput")
-      .should("be.empty")
-      .get("@addByIndex")
-      .should("be.disabled")
-      .get("@textInput")
-      .type("test")
-      .get("@indexInput")
-      .type("1")
-      .get("@addByIndex")
-      .should("not.be.disabled")
-      .get("@textInput")
-      .clear()
-      .get("@indexInput")
-      .clear()
-      .get("@addByIndex")
-      .should("be.disabled");
+    cy.checkButtonsUnavailabilityOnEmptyInputs("@indexInput", ["@deleteByIndex"]);
   });
 
   it("Проверка корректности отрисовки списка по-умолчанию", () => {
@@ -110,7 +61,7 @@ describe("Тестирование страницы 'Стек'", () => {
   });
 
   it("Проверка добавления элемента в head", () => {
-    cy.get("@textInput").should("be.empty").type("test");
+    cy.get("@valueInput").should("be.empty").type("test");
     cy.clock();
     cy.get("@prepend").should("not.be.disabled").click();
     cy.get("@circles")
@@ -135,7 +86,7 @@ describe("Тестирование страницы 'Стек'", () => {
   });
 
   it("Проверка добавления элемента в tail", () => {
-    cy.get("@textInput").should("be.empty").type(TEST_DATA.addingText);
+    cy.get("@valueInput").should("be.empty").type(TEST_DATA.addingText);
     cy.clock();
     cy.get("@append").should("not.be.disabled").click();
     cy.get("@circles")
@@ -160,7 +111,7 @@ describe("Тестирование страницы 'Стек'", () => {
   });
 
   it("Проверка добавления элемента по индексу", () => {
-    cy.get("@textInput").should("be.empty").type(TEST_DATA.addingText);
+    cy.get("@valueInput").should("be.empty").type(TEST_DATA.addingText);
     cy.get("@indexInput")
       .should("be.empty")
       .type(TEST_DATA.addingIndex.toString());

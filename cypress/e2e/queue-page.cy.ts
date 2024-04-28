@@ -1,5 +1,15 @@
 import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
-import { CIRCLE_BORDER_STYLES } from "./constants";
+import { ElementStates } from "../../src/types/element-states";
+import {
+  CIRCLE_BORDER_STYLES,
+  SELECTOR_ACTION_BUTTON_ADD,
+  SELECTOR_ACTION_BUTTON_CLEAR,
+  SELECTOR_ACTION_BUTTON_DELETE,
+  SELECTOR_CIRCLES,
+  SELECTOR_HEADS,
+  SELECTOR_TAILS,
+  SELECTOR_VALUE_INPUT,
+} from "../support/constants";
 
 const TEST_DATA = {
   itemsForQueue: ["FIRS", "SECO", "THIR", "FOUR"],
@@ -8,40 +18,25 @@ const TEST_DATA = {
 describe("Тестирование страницы 'Очередь'", () => {
   beforeEach(() => {
     cy.visit("/queue");
-    cy.get("[data-test-id='textInput']").as("textInput");
-    cy.get("[data-test-id='add']").as("addButton");
-    cy.get("[data-test-id='delete']").as("deleteButton");
-    cy.get("[data-test-id='clear']").as("clearButton");
+    cy.get(SELECTOR_VALUE_INPUT).as("valueInput");
+    cy.get(SELECTOR_ACTION_BUTTON_ADD).as("addButton");
+    cy.get(SELECTOR_ACTION_BUTTON_DELETE).as("deleteButton");
+    cy.get(SELECTOR_ACTION_BUTTON_CLEAR).as("clearButton");
     cy.get("p[class*='circle']").as("queue");
-    cy.get("div[class*='circle']").as("circles");
-    cy.get("div[class*='head']").as("heads");
-    cy.get("div[class*='tail']").as("tails");
+    cy.get(SELECTOR_CIRCLES).as("circles");
+    cy.get(SELECTOR_HEADS).as("heads");
+    cy.get(SELECTOR_TAILS).as("tails");
   });
 
   it("Проверка условия - при пустом поле ввода кнопка добавления в очередь неактивна", () => {
-    cy.get("@textInput")
-      .should("be.empty")
-      .get("@addButton")
-      .should("be.disabled")
-      .get("@textInput")
-      .type("test")
-      .get("@addButton")
-      .should("not.be.disabled")
-      .get("@textInput")
-      .clear()
-      .get("@addButton")
-      .should("be.disabled");
+    cy.checkButtonsUnavailabilityOnEmptyInputs("@valueInput", ["@addButton"]);
   });
 
   it("Проверка условия - при пустой очереди кнопка очистки неактивна", () => {
-    cy.get("@queue")
-      .each((element) => {
-        cy.wrap(element).should("be.empty");
-      })
-      .get("@deleteButton")
-      .should("be.disabled")
-      .get("@clearButton")
-      .should("be.disabled");
+    cy.checkButtonsUnavailabilityOnEmptyElement("@queue", [
+      "@deleteButton",
+      "@clearButton",
+    ]);
   });
 
   it("Проверка правильности добавления элемента в очередь. ", () => {
@@ -50,45 +45,43 @@ describe("Тестирование страницы 'Очередь'", () => {
     });
 
     TEST_DATA.itemsForQueue.forEach((item, itemIndex) => {
-      cy.get("@textInput").should("be.empty").type(item);
+      cy.get("@valueInput").should("be.empty").type(item);
       cy.clock();
       cy.get("@addButton").should("not.be.disabled").click();
       cy.get("@heads").eq(0).should("contain", "head");
       cy.get("@queue").eq(itemIndex).should("contain", item);
       cy.get("@circles")
         .eq(itemIndex)
-        .should("have.css", "border", CIRCLE_BORDER_STYLES.changing);
+        .then((element) =>
+          cy.checkBorderStyle(element, ElementStates.Changing)
+        );
       cy.get("@tails").eq(itemIndex).should("contain", "tail");
 
       cy.tick(SHORT_DELAY_IN_MS);
       cy.get("@circles")
         .eq(itemIndex)
-        .should("have.css", "border", CIRCLE_BORDER_STYLES.default);
+        .then((element) =>
+          cy.checkBorderStyle(element, ElementStates.Changing)
+        );
       cy.clock().then((clock) => {
         clock.restore();
       });
     });
 
-    cy.get("@textInput")
-      .should("be.empty")
-      .get("@addButton")
-      .should("be.disabled")
-      .get("@deleteButton")
-      .should("not.be.disabled")
-      .get("@clearButton")
-      .should("not.be.disabled");
+    cy.get("@valueInput").should("be.empty");
+    cy.get("@addButton").should("be.disabled");
+    cy.get("@deleteButton").should("not.be.disabled");
+    cy.get("@clearButton").should("not.be.disabled");
   });
 
   it("Проверка правильности удаления элемента из очереди. ", () => {
     TEST_DATA.itemsForQueue.forEach((item) => {
-      cy.get("@textInput").should("be.empty").type(item);
-      cy.clock();
-      cy.get("@addButton").should("not.be.disabled").click();
-      cy.tick(SHORT_DELAY_IN_MS);
-      cy.tick(SHORT_DELAY_IN_MS);
-      cy.clock().then((clock) => {
-        clock.restore();
-      });
+      cy.typeValueToInputAndClickActionButton(
+        "@valueInput",
+        "@addButton",
+        item,
+        SHORT_DELAY_IN_MS * 2
+      );
     });
 
     TEST_DATA.itemsForQueue.forEach((item, itemIndex) => {
@@ -117,37 +110,27 @@ describe("Тестирование страницы 'Очередь'", () => {
 
   it("Проверка правильности очистки очереди. ", () => {
     TEST_DATA.itemsForQueue.forEach((item) => {
-      cy.get("@textInput").should("be.empty").type(item);
-      cy.clock();
-      cy.get("@addButton").should("not.be.disabled").click();
-      cy.tick(SHORT_DELAY_IN_MS);
-      cy.tick(SHORT_DELAY_IN_MS);
-      cy.clock().then((clock) => {
-        clock.restore();
-      });
+      cy.typeValueToInputAndClickActionButton(
+        "@valueInput",
+        "@addButton",
+        item,
+        SHORT_DELAY_IN_MS * 2
+      );
     });
 
     cy.clock();
     cy.get("@clearButton").should("not.be.disabled").click();
 
     cy.get("@circles").each((element) => {
-      cy.wrap(element).should(
-        "have.css",
-        "border",
-        CIRCLE_BORDER_STYLES.changing
-      );
+      cy.checkBorderStyle(element, ElementStates.Changing);
     });
-
-    cy.tick(SHORT_DELAY_IN_MS);
-    cy.tick(SHORT_DELAY_IN_MS);
+    cy.tick(SHORT_DELAY_IN_MS * 2);
 
     cy.clock().then((clock) => {
       clock.restore();
     });
 
-    cy.get("@clearButton")
-      .should("be.disabled")
-      .get("@deleteButton")
-      .should("be.disabled");
+    cy.get("@clearButton").should("be.disabled");
+    cy.get("@deleteButton").should("be.disabled");
   });
 });

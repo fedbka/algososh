@@ -1,4 +1,4 @@
-import { APP_TITLE, ROUTES } from "../../src/constants/tests";
+import { APP_TITLE, ROUTES } from "../support/constants";
 
 describe("Тестирование переходов по страницам", () => {
   it("Главная страница приложения отображается", () => {

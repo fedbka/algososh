@@ -121,7 +121,7 @@ export const ListPage: React.FC = () => {
     <SolutionLayout title="Связный список">
       <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <fieldset className={styles.fieldset} disabled={isLoading}>
-          <Input extraClass={styles.input} type="text" maxLength={4} value={values.valueInput as number} name="valueInput" isLimitText={true} placeholder="Введите значение" onChange={onChangeHandler} data-test-id="textInput"/>
+          <Input extraClass={styles.input} type="text" maxLength={4} value={values.valueInput as number} name="valueInput" isLimitText={true} placeholder="Введите значение" onChange={onChangeHandler} data-test-id="valueInput"/>
           <Button extraClass={styles.wideButton} text="Добавить в head" type="button" isLoader={isLoading && action === 'prepend'} disabled={!values.valueInput || values.valueInput as number > 9999} onClick={() => startVisualization('prepend')} data-test-id="prepend"/>
           <Button extraClass={styles.wideButton} text="Добавить в tail" type="button" isLoader={isLoading && action === 'append'} disabled={!values.valueInput || values.valueInput as number > 9999} onClick={() => startVisualization('append')} data-test-id="append"/>
           <Button extraClass={styles.wideButton} text="Удалить из head" type="button" isLoader={isLoading && action === 'deleteHead'} disabled={!list.head} onClick={() => startVisualization('deleteHead')} data-test-id="deleteHead"/>

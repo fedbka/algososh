@@ -4,76 +4,62 @@ import {
 } from "../../src/components/string-page/string-page-algorithm";
 
 import { DELAY_IN_MS } from "../../src/constants/delays";
-import { ElementStates } from "../../src/types/element-states";
-import { CIRCLE_BORDER_STYLES } from "./constants";
+import {
+  SELECTOR_ACTION_BUTTON,
+  SELECTOR_CIRCLES,
+  SELECTOR_CIRCLES_CONTENT,
+  SELECTOR_VALUE_INPUT,
+} from "../support/constants";
 
 const TEST_DATA = {
   inputString: "АНДРЕЙ",
   reversedInputString: "ЙЕРДНА",
-  reverseSteps: [] as TSteps,
+  steps: [] as TSteps,
 };
 
-TEST_DATA.reverseSteps = reverseStringWithSteps(TEST_DATA.inputString);
+TEST_DATA.steps = reverseStringWithSteps(TEST_DATA.inputString);
 
 describe("Тестирование страницы 'Строка'", () => {
   beforeEach(() => {
     cy.visit("/recursion");
-    cy.get("button[type=submit]").as("submitButton");
-    cy.get("input").as("textInput");
+    cy.get(SELECTOR_VALUE_INPUT).as("valueInput");
+    cy.get(SELECTOR_ACTION_BUTTON).as("actionButton");
   });
 
   it("Проверка условия - при пустом поле ввода кнопка запуска действия неактивна", () => {
-    cy.get("@textInput").should("be.empty");
-    cy.get("@submitButton").should("be.disabled");
-    cy.get("@textInput").type(TEST_DATA.inputString);
-    cy.get("@submitButton").should("not.be.disabled");
-    cy.get("@textInput").clear();
-    cy.get("@submitButton").should("be.disabled");
+    cy.checkButtonsUnavailabilityOnEmptyInputs("@valueInput", [
+      "@actionButton",
+    ]);
   });
 
   it(`Проверка корректности разворота и анимации (пошаговая)`, () => {
-    cy.get("@textInput").type(TEST_DATA.inputString);
-    cy.get("@submitButton").should("not.be.disabled");
+    cy.get("@valueInput").type(TEST_DATA.inputString);
+    cy.get("@actionButton").should("not.be.disabled");
     cy.clock();
-    cy.get("@submitButton").click();
+    cy.get("@actionButton").click();
 
-    cy.get("div[class*='circle']").as("letters");
+    cy.get(SELECTOR_CIRCLES_CONTENT).as("letters");
+    cy.get(SELECTOR_CIRCLES).as("circles");
 
-    TEST_DATA.reverseSteps.forEach((step) => {
-      cy.get("@submitButton").should("be.disabled");
+    TEST_DATA.steps.forEach((step) => {
+      cy.get("@actionButton").should("be.disabled");
       cy.get("@letters")
-        .children()
+        .should("have.length", TEST_DATA.inputString.length)
+        .each((letter, index) => {
+          cy.wrap(letter).should("contain", step[index].value);
+        });
+      cy.get("@circles")
         .should("have.length", TEST_DATA.inputString.length)
         .each((circle, index) => {
-          cy.wrap(circle)
-            .should("contain", step[index].value)
-            .parent()
-            .should(
-              "have.css",
-              "border",
-              step[index].state == ElementStates.Default
-                ? CIRCLE_BORDER_STYLES.default
-                : step[index].state == ElementStates.Changing
-                ? CIRCLE_BORDER_STYLES.changing
-                : CIRCLE_BORDER_STYLES.modified
-            );
+          cy.checkBorderStyle(circle, step[index].state);         
         });
       cy.tick(DELAY_IN_MS);
-      cy.clock().then((clock) => {
-        clock.restore();
-      });
     });
 
-    cy.get("@letters")
-      .children()
-      .should("have.length", TEST_DATA.inputString.length)
-      .each((circle, index) => {
-        cy.wrap(circle)
-          .should("contain", TEST_DATA.reversedInputString[index])
-          .parent()
-          .should("have.css", "border", CIRCLE_BORDER_STYLES.modified);
-      });
-    cy.get("@textInput").should("be.empty");
-    cy.get("@submitButton").should("be.disabled");
+    cy.clock().then((clock) => {
+      clock.restore();
+    });
+    cy.get("@valueInput").should("be.empty");
+    cy.get("@actionButton").should("be.disabled");
   });
 });

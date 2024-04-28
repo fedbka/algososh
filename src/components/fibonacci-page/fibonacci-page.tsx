@@ -7,6 +7,7 @@ import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { getFibonacciNumbers } from "./fibonacci-page-algorithm";
 import styles from "./fibonacci-page.module.css";
+import { ElementStates } from "../../types/element-states";
 
 export const FibonacciPage: React.FC = () => {
   const { values, onChangeHandler, setValues } = useForm({ numberInput: "" });
@@ -42,13 +43,13 @@ export const FibonacciPage: React.FC = () => {
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
       <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-        <Input name="numberInput" placeholder="Введите число" type="number" value={Number(values.numberInput)} isLimitText={true} min={minNumber} max={maxNumber} extraClass={styles.input} onChange={onChangeHandler} disabled={isLoading} />
-        <Button type="submit" text="Рассчитать" disabled={isLoading || !values.numberInput || Number(values.numberInput) > maxNumber || Number(values.numberInput) < minNumber} isLoader={isLoading} onClick={startVisualization} />
+        <Input name="numberInput" placeholder="Введите число" type="number" value={Number(values.numberInput)} isLimitText={true} min={minNumber} max={maxNumber} extraClass={styles.input} onChange={onChangeHandler} disabled={isLoading} data-test-id="valueInput" />
+        <Button type="submit" text="Рассчитать" disabled={isLoading || !values.numberInput || Number(values.numberInput) > maxNumber || Number(values.numberInput) < minNumber} isLoader={isLoading} onClick={startVisualization} data-test-id="actionButton"/>
       </form>
       <ul className={styles.numbers}>
         {fiboNumbers.map((fiboNumber, index) => index <= stepIndex ? (
           <li key={index}>
-            <Circle index={index} letter={fiboNumber.toString()} />
+            <Circle index={index} letter={fiboNumber.toString()} state={ElementStates.Default}/>
           </li>
         ) : null)}
       </ul>
