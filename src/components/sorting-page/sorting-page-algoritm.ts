@@ -87,5 +87,4 @@ export const sortNumbers = (
   }
 
   return result;
-  console.log(result);
 };

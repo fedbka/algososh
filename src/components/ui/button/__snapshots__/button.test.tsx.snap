@@ -1,0 +1,62 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Тестирование компонента 'Button' > Компонент 'Button' c текстом формируется без ошибок 1`] = `
+<button
+  class="text text_type_button text_color_primary _button_f92531 undefined false "
+  type="button"
+>
+  <p
+    class="text undefined"
+  >
+    test text
+  </p>
+</button>
+`;
+
+exports[`Тестирование компонента 'Button' > Компонент 'Button' без текста формируется без ошибок 1`] = `
+<button
+  class="text text_type_button text_color_primary _button_f92531 undefined false "
+  type="button"
+>
+  <p
+    class="text undefined"
+  />
+</button>
+`;
+
+exports[`Тестирование компонента 'Button' > Компонент 'Button' с вызовом функции по нажатию обрабатывает вызов корректно,  1`] = `
+<button
+  class="text text_type_button text_color_primary _button_f92531 undefined false "
+  type="button"
+>
+  <p
+    class="text undefined"
+  />
+</button>
+`;
+
+exports[`Тестирование компонента 'Button' > Компонент 'Button' с индикацией загрузки формируется без ошибок 1`] = `
+<button
+  class="text text_type_button text_color_primary _button_f92531 undefined _loader_f92531 "
+  disabled=""
+  type="button"
+>
+  <img
+    alt="Загрузка."
+    class="_loader_icon_f92531"
+    src="/src/images/icons/loader.svg"
+  />
+</button>
+`;
+
+exports[`Тестирование компонента 'Button' > Компонент 'Button' со свойством 'disabled' формируется без ошибок 1`] = `
+<button
+  class="text text_type_button text_color_primary _button_f92531 undefined false "
+  disabled=""
+  type="button"
+>
+  <p
+    class="text undefined"
+  />
+</button>
+`;

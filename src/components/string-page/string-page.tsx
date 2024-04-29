@@ -41,8 +41,8 @@ export const StringComponent: React.FC = () => {
   return (
     <SolutionLayout title="Строка">
       <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-        <Input name="textInput" value={values.textInput as string} placeholder="Введите текст" type="text" maxLength={11} isLimitText={true} onChange={onChangeHandler} extraClass={styles.input} disabled={isLoading} />
-        <Button type="submit" text="Развернуть" disabled={!values.textInput || isLoading} isLoader={isLoading} onClick={startVisualization} />
+        <Input name="textInput" value={values.textInput as string} placeholder="Введите текст" type="text" maxLength={11} isLimitText={true} onChange={onChangeHandler} extraClass={styles.input} disabled={isLoading} data-test-id="valueInput" />
+        <Button type="submit" text="Развернуть" disabled={!values.textInput || isLoading} isLoader={isLoading} onClick={startVisualization} data-test-id="actionButton" />
       </form>
       <ul className={styles.letters}>
         {steps[stepIndex]?.map((letter, index) => (

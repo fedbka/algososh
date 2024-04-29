@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "types": ["cypress"],
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,    
+  },
+  "include": ["**/*.*"]
+}

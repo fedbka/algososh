@@ -73,17 +73,17 @@ export const QueuePage: React.FC = () => {
     <SolutionLayout title="Очередь">
       <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <fieldset className={styles.fieldset_input} disabled={isLoading}>
-          <Input type="string" maxLength={4} value={values.textInput as string} name="textInput" placeholder="Введите значение" onChange={onChangeHandler} />
+          <Input type="string" maxLength={4} value={values.textInput as string} name="textInput" placeholder="Введите значение" onChange={onChangeHandler} data-test-id="valueInput"/>
         </fieldset>
         <fieldset className={styles.form_buttons} disabled={isLoading}>
           <div className={styles.form_buttons_main}>
-            <Button text="Добавить" type="button" onClick={() => startVisualization("add")} isLoader={isLoading && action === 'add'} disabled={!values.textInput || queue.tail === queue.size() - 1} />
-            <Button text="Удалить" type="button" onClick={() => startVisualization("delete")} isLoader={isLoading && action === 'delete'} disabled={!queue.size() || !queue.length()} />
+            <Button text="Добавить" type="button" onClick={() => startVisualization("add")} isLoader={isLoading && action === 'add'} disabled={!values.textInput || queue.tail === queue.size() - 1} data-test-id="add" />
+            <Button text="Удалить" type="button" onClick={() => startVisualization("delete")} isLoader={isLoading && action === 'delete'} disabled={!queue.size() || !queue.length()} data-test-id="delete"/>
           </div>
-          <Button text="Очистить" type="button" onClick={() => startVisualization("clear")} isLoader={isLoading && action === 'clear'} disabled={!queue.length()} />
+          <Button text="Очистить" type="button" onClick={() => startVisualization("clear")} isLoader={isLoading && action === 'clear'} disabled={!queue.length()} data-test-id="clear" />
         </fieldset>
       </form>
-      <ul className={styles.queue}>
+      <ul className={styles.queue} data-test-id="queue">
         {isLoading && steps[stepIndex].map((element, index) => (
           <li key={index}>
             <Circle letter={element.value} state={element.state} index={index} head={element.head} tail={element.tail} />
